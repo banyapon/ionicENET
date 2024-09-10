@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+   
+    <ion-title>Create Products</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input [(ngModel)]="articleTitle" name="articleTitle"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Content</ion-label>
+      <ion-textarea [(ngModel)]="articleContent" name="articleContent"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Quantity</ion-label>
+      <ion-input type="number" [(ngModel)]="quantity" name="quantity"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price</ion-label>
+      <ion-input type="number" [(ngModel)]="price" name="price"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" class="date_div">Release Date</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="releaseDate"  name="releaseDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Details</ion-label>
+      <ion-textarea [(ngModel)]="details"  name="details"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Other Info</ion-label>
+      <ion-input [(ngModel)]="otherInfo" name="otherInfo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Contact Info</ion-label>
+      <ion-input [(ngModel)]="contactInfo"  name="contactInfo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Image Cover</ion-label>
+      <input class="x_form" type="file" (change)="onFileSelected($event)" />
+    </ion-item>
+
+    <ion-item>
+      <ion-progress-bar *ngIf="uploadPercent" [value]="uploadPercent / 100"></ion-progress-bar>
+    </ion-item>
+
+    <ion-button color="warning" (click)="onSubmit()" expand="block">Submit</ion-button>
+  </form>
+  </ion-content>
