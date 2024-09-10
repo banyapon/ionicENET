@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Video Player</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <video #videoPlayer width="100%" controls (click)="toggleFullscreen()"> 
+    <source src="assets/video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</ion-content>
