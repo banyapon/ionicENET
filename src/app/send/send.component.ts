@@ -1,15 +1,20 @@
 import { Component, OnDestroy, Input } from '@angular/core';
 // AngularFireStorage ไม่ได้ใช้แล้ว จึงลบออกไป
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { ModalController } from '@ionic/angular';
+import { Firestore, getFirestore } from 'firebase/firestore';
+import { getApp } from 'firebase/app';
+import { ModalController, IonicModule } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 // Firestore modular imports ยังคงใช้อยู่
 import { addDoc, collection, updateDoc, doc } from 'firebase/firestore';
+import { FormsModule } from '@angular/forms';
 
 @Component({
+  standalone: true,
   selector: 'app-send',
   templateUrl: './send.component.html',
   styleUrls: ['./send.component.scss'],
+  imports: [IonicModule,FormsModule]
 })
 export class SendComponent implements OnDestroy {
 
@@ -59,7 +64,7 @@ export class SendComponent implements OnDestroy {
   private uploadToCloudinary(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       // !! ต้องเปลี่ยน: YOUR_CLOUD_NAME และ YOUR_UPLOAD_PRESET
-      const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/<<APP>>/image/upload';
+      const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dp9xmkdvd/image/upload';
       const uploadPreset = 'filefrommyapp';
 
       const formData = new FormData();
@@ -111,10 +116,10 @@ export class SendComponent implements OnDestroy {
 
     try {
       // 1. อัปโหลดรูปไป Cloudinary และรอรับ URL กลับมา
-      const imageUrl = await this.uploadToCloudinary(this.selectedImage);
+      const imageUrl = await this.uploadToCloudinary(this.selectedImage as File);
 
       // 2. เมื่อได้ URL แล้ว ให้บันทึกข้อมูลทั้งหมดลง Firestore
-      const firestoreInstance = this.firestore.firestore;
+      const firestoreInstance: Firestore = getFirestore(getApp());
       const contentsCollection = collection(firestoreInstance, 'contents');
       
       // สร้างเอกสารใหม่พร้อมข้อมูลทั้งหมดในครั้งเดียว
@@ -140,6 +145,8 @@ export class SendComponent implements OnDestroy {
       await updateDoc(doc(firestoreInstance, 'contents', docRef.id), {
         docID: docRef.id
       });
+
+      console.log('Document updated with its own ID!');
 
       console.log('Document updated with its own ID!');
 
