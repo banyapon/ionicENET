@@ -10,8 +10,9 @@ import { SendComponent } from "./send.component";
         CommonModule,
         FormsModule,
         IonicModule,  
-        RouterModule.forChild([{ path: '', component: SendComponent }])],
-    declarations: [SendComponent],
+        SendComponent,
+        RouterModule.forChild([{ path: '', component: SendComponent }])
+    ],
 })
 export class SendComponentModule {
 
