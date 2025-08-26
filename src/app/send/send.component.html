@@ -56,9 +56,6 @@
       <input class="x_form" type="file" (change)="onFileSelected($event)" />
     </ion-item>
 
-    <ion-item>
-      <ion-progress-bar *ngIf="uploadPercent" [value]="uploadPercent / 100"></ion-progress-bar>
-    </ion-item>
 
     <ion-button color="warning" (click)="onSubmit()" expand="block">Submit</ion-button>
   </form>
